@@ -1,6 +1,6 @@
 # Git and GitHub Tutorial for Beginners
 
-`https://www.youtube.com/watch?v=tRZGeaHPoaw`
+[![Watch the video](https://img.youtube.com/vi/tRZGeaHPoaw/maxresdefault.jpg)](https://youtu.be/tRZGeaHPoaw)
 
 ## Set configuration values for your username and email
 git config --global user.name YOUR NAME
