@@ -1,0 +1,534 @@
+<?php
+
+    /**
+     ** App Name : Setup Module v2.0
+     ** Version : Setup Module v2.0
+     ** Description :   This Setup Module can perform multitask like:
+     **                 (1) Config File Generator, (2) Config File Uninstall,
+     **                 (3) Database Table Creation, (4) Database Table Deletion
+     **                 
+     ** Developed By : Anisur Rahman
+     ** Youtube : https://www.youtube.com/anisurrahman
+     ** Github : https://github.com/Anisur056
+     ** Gmail : ranisur056@gmail.com
+     */
+
+    // Check if $_GET[ 'step' ] is set or not.
+    if ( isset( $_GET[ 'step' ] ) ) 
+    {
+        $step = (string) $_GET['step'];
+    } 
+    else 
+    {
+        $step = "";
+    }
+
+    // Perform multitask depanding on GET method [ 'step' ] in browser url.
+    switch ( $step ) 
+    {
+        default :
+        /**
+         ** This PHP switch default section loads Setup Module's welcome screen.
+         ** This section contains Information & Links of Module Actions.
+         */
+            load_welcomeScreen();
+        break;
+
+        case 'config-install':
+            load_configInstall();
+        break;
+
+        case 'config-uninstall-dialog':
+            load_configUninstallDialog();
+        break;
+
+        case 'config-del':
+            unlink("config.php");
+            header("location: ?");
+        break;
+
+        case 'db-install':
+            load_dbInstall();
+        break;
+
+        case 'db-uninstall':
+            load_dbUninstall();
+        break;        
+    }
+
+    function applyCss()
+    {
+        echo '
+            <style>
+            *{
+                margin:0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: Arial;
+                font-size: 12pt;
+            }
+            body{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                background: #fff;
+            }
+            .div-card{
+                background: #eee;
+                margin : 40px 0px;
+                border-radius : 4px;
+                border : 1px solid #e0e0e0;
+                width: 100%;
+                max-width: 370px;
+            }
+            .div-card-title{
+                font-size: 15pt;
+                text-align: center;
+                font-weight: bold;
+                background: #e5e5e5;
+                padding: 10px;
+            }
+            .div-card-body{
+                padding: 10px;
+            }
+            .div-card-body input{
+                width: 100%;
+                padding: 8px;
+                border: none;
+                outline: none;
+                border: 1px solid #e5e5e5;
+                border-radius: 3px;
+                margin: 10px 0px;
+            }
+            .div-card-footer input[type=submit]{
+                border: none;
+                border: 1px solid #000;
+                border-radius: 2px;
+                outline: none;
+                background : #fff;
+                padding: 5px;
+            }
+            .div-card-body ol{
+                margin: 20px;
+            }
+            .div-card-body a{
+                text-decoration: none;
+                color: #000;
+                background : #fff;
+                border: 1px solid #e0e0e0;
+                margin-top : 10px;
+                padding : 5px;
+                display: block;
+                border-radius: 4px;
+            }
+            .div-card-footer{
+                padding: 10px;
+                background: #e5e5e5;
+            }
+            .div-card-footer a{
+                text-decoration: none;
+                display: inline-block;
+                background : #fff;
+                color : #000;
+                padding : 5px;
+                border-radius: 2px;
+                border : 1px solid #000;
+            }
+            @keyframes slideFromUp {
+                0% {
+                  transform: translateY(-20%);
+                }
+                100% {
+                  transform: translateY(0);
+                }
+              }
+              .div-card {  
+                animation: 1s ease-out 0s 1 slideFromUp;
+              }
+        </style> ';
+    }
+
+    function load_welcomeScreen()
+    {
+        ?>
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta   name="viewport" 
+                        content="width=device-width, 
+                                initial-scale=1.0, 
+                                user-scalable=no">
+                <title>Welcome > Setup Module v2.0</title>
+                <?php applyCss(); ?>
+            </head>
+            <body>
+                <div class="div-card">
+                    <div class="div-card-title">Setup Module v2.0</div>
+                    <div class="div-card-body">
+                        <p>Welcome To Setup Module v2.0.</p>
+                        <p>This Setup Module can perform multitask like: </p>
+                        <ol>
+                            <li>Config File Generator</li>
+                            <li>Config File Uninstall</li>
+                            <li>Database Table Creation</li>
+                            <li>Database Table Deletion</li>
+                        </ol>
+                        <p>Developed By : Anisur Rahman</p>
+                        <p>Youtube : www.youtube.com/anisurrahman</p>
+                        <p>Github : github.com/Anisur056</p>
+                        <p>Gmail : ranisur056@gmail.com</p><br>
+                        <p>To get started Click the link Below</p><br>
+
+                        <a href="?step=config-install">Config File Generator</a>
+                        <a href="?step=config-uninstall-dialog">Config File Uninstall</a>
+                        <a href="?step=db-install">Install Database</a>
+                        <a href="?step=db-uninstall">Uninstall Database</a>
+                    </div>
+                    <div class="div-card-footer">
+                        <a href="/">Back</a>
+                    </div>
+                </div>
+            </body>
+            </html>
+        <?php
+    }
+
+    function load_configInstall()
+    {
+        if( $_SERVER['REQUEST_METHOD'] === 'POST' )
+        {
+            $host = $_POST['host'];
+            $user = $_POST['user'];
+            $pass = $_POST['pass'];
+            $db = $_POST['db'];
+            $charset = $_POST['charset'];
+            $http = $_POST['http']."://";
+            $server = $_POST['server']."/";
+    
+            $path = "config.php";
+            $config_file = fopen($path,"w");
+    
+            $add = "<?php\n\n";
+            fwrite($config_file,$add);
+    
+            $add = "    \$host='".$host."';\n";
+            fwrite($config_file,$add);
+    
+            $add = "    \$user='".$user."';\n";
+            fwrite($config_file,$add);
+    
+            $add = "    \$pass='".$pass."';\n";
+            fwrite($config_file,$add);
+    
+            $add = "    \$db='".$db."';\n";
+            fwrite($config_file,$add);
+    
+            $add = "    \$charset='".$charset."';\n";
+            fwrite($config_file,$add);
+    
+            $add = "    \$http_socket='".$http."';\n";
+            fwrite($config_file,$add);
+    
+            $add = "    \$server='".$server."';\n";
+            fwrite($config_file,$add);
+
+            $add = "    date_default_timezone_set('Asia/Dhaka');\n";
+            fwrite($config_file,$add);
+    
+            $add = "    \$web_address = \$http_socket.\$server;\n\n";
+            fwrite($config_file,$add);
+    
+            $add = "    try\n    {\n";
+            fwrite($config_file,$add);
+    
+            $add = "        \$pdo = new PDO('mysql:host='.\$host.';dbname='.\$db.';charset='.\$charset,\$user,\$pass);\n    }\n";
+            fwrite($config_file,$add);
+    
+            $add = "    catch (PDOException \$e)\n    {";
+            fwrite($config_file,$add);
+    
+            $add = "        \n        \$server_error = 1;\n    }\n\n";
+            fwrite($config_file,$add);        
+    
+            $add = "?>";
+            fwrite($config_file,$add);
+    
+            fclose($config_file);
+
+            echo ' 
+                <div id="notify" style="width: 370px; text-align:center; background: #e0e0e0; padding: 9px; margin: 20px; border-radius: 3px;">
+                    Config File Successfully Created. <br>
+                    Wait 5 Sec to Redirect Home Page.
+                </div>
+            ';
+        }
+
+        if(file_exists("config.php")){
+            require "config.php";   
+        }
+        ?>
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta   name="viewport" 
+                        content="width=device-width, 
+                                initial-scale=1.0">
+                <title>Config File Generator > Setup Module v2.0</title>
+                <?php applyCss(); ?>
+            </head>
+            <body>
+                <div class="div-card">
+                    <div class="div-card-title">Config File Generator</div>
+                    <div class="div-card-body">
+                        <form action="" method="post">
+
+                            <span>MYSQL_HOSTNAME</span>
+                            <input type="text" name="host" value="<?php echo (empty($host)) ? 'localhost' : $host ; ?>">
+                            
+                            <span>MYSQL_USERNAME</span>
+                            <input type="text" name="user" value="<?php echo (empty($user)) ? 'root' : $user ; ?>">
+
+                            <span>MYSQL_PASSWORD</span>
+                            <input type="password" name="pass" value="<?php echo (empty($pass)) ? '' : $pass ; ?>">
+
+                            <span>DATABASE</span>
+                            <input type="text" name="db" value="<?php echo (empty($db)) ? '' : $db ; ?>">
+
+                            <span>CHARACTER_SET</span>
+                            <input type="text" name="charset" value="<?php echo (empty($charset)) ? 'utf8' : $charset ; ?>">
+
+                            <span>HTTP_CON_TYPE</span>
+                            <input type="text" name="http" value="<?php echo $_SERVER['REQUEST_SCHEME']; ?>">
+
+                            <span>BASE_URL</span>
+                            <input type="text" name="server" value="<?php echo $_SERVER['SERVER_NAME']; ?>">
+                    </div>
+                    
+                    <div class="div-card-footer">
+                            <input type="submit" value="Save">
+                            <a href="?">Home</a>
+                        </form> 
+                    </div>                           
+                </div>
+                <script>
+                    setTimeout(() => {
+                    const box = document.getElementById('notify');
+                    box.style.display = 'none';
+                    window.location.href = "?";
+                    }, 5000);
+                </script>
+            </body>
+            </html>
+        <?php
+    }
+
+    function load_configUninstallDialog()
+    {
+        ?>
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Uninstall/Delete Config File > Setup Module v2.0</title>
+                <?php applyCss(); ?>
+            </head>
+            <body>
+                <div class="div-card">
+                    <div class="div-card-title">Config File Uninstall</div>
+                    <div class="div-card-body"> <br>
+                        Do you want to Uninstall/Delete Config File? <br><br>
+                    </div>
+                    <div class="div-card-footer">
+                        <a href="?step=config-del">Yes</a>
+                        <a href="?">No</a>
+                    </div>
+                </div>
+            </body>
+            </html>
+        <?php
+    }
+
+    function load_dbInstall()
+    {
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST')
+        {
+            if(file_exists("config.php")){
+                include "config.php";   
+            }
+            $table = $pdo->prepare('CREATE TABLE IF NOT EXISTS `accounts_heads` (
+                `id` int(11) NOT NULL AUTO_INCREMENT,
+                `accounts_name` text NOT NULL,
+                `accounts_type` text NOT NULL,
+                `amount` int(11) NOT NULL,
+                PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci');
+            
+            $table->execute();
+
+            $table = $pdo->prepare("
+            INSERT INTO `accounts_heads` (id, accounts_name, accounts_type, amount) VALUES ('1', 'পূর্বের ব্যালেন্স', 'cash_in', '0');
+            INSERT INTO `accounts_heads` (id, accounts_name, accounts_type, amount) VALUES ('2', 'দরজা মেকিং- উডল্যান্ড ডোর গ্যালারী ', 'cash_in', '0');
+            INSERT INTO `accounts_heads` (id, accounts_name, accounts_type, amount) VALUES ('3', 'দরজা মেকিং-  এস.এম. ডোর ', 'cash_in', '0');
+            INSERT INTO `accounts_heads` (id, accounts_name, accounts_type, amount) VALUES ('4', 'দরজা মেকিং-  ট্রাস্ট ট্রেড লিংক ', 'cash_in', '0');
+            INSERT INTO `accounts_heads` (id, accounts_name, accounts_type, amount) VALUES ('5', 'ভাড়া কর্তন হিসাব ', 'cash_in', '0');
+            INSERT INTO `accounts_heads` (id, accounts_name, accounts_type, amount) VALUES ('6', ' দান হিসাব ', 'cash_out', '0');
+            INSERT INTO `accounts_heads` (id, accounts_name, accounts_type, amount) VALUES ('7', ' বেতন হিসাব ', 'cash_out', '0');
+            INSERT INTO `accounts_heads` (id, accounts_name, accounts_type, amount) VALUES ('8', ' মেশিনারি মাল ক্রয় হিসাব ', 'cash_out', '0');
+            INSERT INTO `accounts_heads` (id, accounts_name, accounts_type, amount) VALUES ('9', ' লেবার বিল হিসাব ', 'cash_out', '0');
+            INSERT INTO `accounts_heads` (id, accounts_name, accounts_type, amount) VALUES ('10', ' কেরসিন ও সরিষার তেল ', 'cash_out', '0');
+            INSERT INTO `accounts_heads` (id, accounts_name, accounts_type, amount) VALUES ('11', ' ডেইলি বেতন ', 'cash_out', '0');
+            INSERT INTO `accounts_heads` (id, accounts_name, accounts_type, amount) VALUES ('12', ' আপ্যায়ন হিসাব ', 'cash_out', '0');
+            INSERT INTO `accounts_heads` (id, accounts_name, accounts_type, amount) VALUES ('13', ' অফিস খরচ', 'cash_out', '0');
+            INSERT INTO `accounts_heads` (id, accounts_name, accounts_type, amount) VALUES ('14', ' ইলেকট্রিক সামগ্রী ক্রয় ', 'cash_out', '0');
+            INSERT INTO `accounts_heads` (id, accounts_name, accounts_type, amount) VALUES ('15', ' নাস্তার খরচ হিসাব ', 'cash_out', '0');
+            INSERT INTO `accounts_heads` (id, accounts_name, accounts_type, amount) VALUES ('16', ' পানির বিল হিসাব ', 'cash_out', '0');
+            INSERT INTO `accounts_heads` (id, accounts_name, accounts_type, amount) VALUES ('17', ' ফ্যাক্টরীর ভাড়া ', 'cash_out', '0');
+            INSERT INTO `accounts_heads` (id, accounts_name, accounts_type, amount) VALUES ('18', ' বকশিশ হিসাব ', 'cash_out', '0');
+            INSERT INTO `accounts_heads` (id, accounts_name, accounts_type, amount) VALUES ('19', ' ভ্যাট হিসাব', 'cash_out', '0');
+            INSERT INTO `accounts_heads` (id, accounts_name, accounts_type, amount) VALUES ('20', ' মজুরী হিসাব', 'cash_out', '0');
+            INSERT INTO `accounts_heads` (id, accounts_name, accounts_type, amount) VALUES ('21', ' মুদি মাল ক্রয় হিসাব ', 'cash_out', '0');
+            INSERT INTO `accounts_heads` (id, accounts_name, accounts_type, amount) VALUES ('22', ' লাকরী ক্রয় হিসাব ', 'cash_out', '0');
+            INSERT INTO `accounts_heads` (id, accounts_name, accounts_type, amount) VALUES ('23', ' গাম ক্রয় হিসাব ', 'cash_out', '0');
+            INSERT INTO `accounts_heads` (id, accounts_name, accounts_type, amount) VALUES ('24', ' হার্ডওয়্যার মাল ক্রয় ', 'cash_out', '0');
+            INSERT INTO `accounts_heads` (id, accounts_name, accounts_type, amount) VALUES ('25', ' ষ্টাফ কোয়াটার ভাড়া', 'cash_out', '0');
+            INSERT INTO `accounts_heads` (id, accounts_name, accounts_type, amount) VALUES ('26', ' প্রিন্টিং প্রেস হিসাব ', 'cash_out', '0');
+            INSERT INTO `accounts_heads` (id, accounts_name, accounts_type, amount) VALUES ('27', ' বিদ্যুৎ মিটার রিচার্জ ', 'cash_out', '0');
+            INSERT INTO `accounts_heads` (id, accounts_name, accounts_type, amount) VALUES ('28', ' রিপেয়ারিং এন্ড ম্যানটেনেন্স ', 'cash_out', '0');
+            INSERT INTO `accounts_heads` (id, accounts_name, accounts_type, amount) VALUES ('29', ' হিজড়া ভাতা ', 'cash_out', '0');
+            INSERT INTO `accounts_heads` (id, accounts_name, accounts_type, amount) VALUES ('30', ' ইন্টারেষ্ট হিসাব', 'cash_out', '0');
+            INSERT INTO `accounts_heads` (id, accounts_name, accounts_type, amount) VALUES ('31', ' ইন্টারনেট বিল', 'cash_out', '0');
+            ");
+            
+            $table->execute();
+
+            $table = $pdo->prepare('CREATE TABLE IF NOT EXISTS `vouchers_collection` (
+                `id` int(11) NOT NULL AUTO_INCREMENT,
+                `date` text NOT NULL,
+                `time` text NOT NULL,
+                `week` text NOT NULL,
+                `transection_type` text NOT NULL,
+                `amount` text NOT NULL,
+                `accounts_head` text NOT NULL,
+                `name` text NOT NULL,
+                `remark` text NOT NULL,
+                `upload` text NOT NULL,
+                `voucher_no` int(255) NOT NULL,
+                PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci');
+            
+            $table->execute();
+
+            echo ' 
+            <div id="notify" style="width: 370px; text-align:center; background: #e0e0e0; padding: 9px; margin: 20px; border-radius: 3px;">
+                `accounts_heads` DATABASE CREATED. <br>
+                `accounts_heads` DATABASE INSERTED. <br>
+                `vouchers_collection` DATABASE CREATED. <br>
+                Wait 5 Sec to Redirect Home Page.
+            </div>
+            ';
+            echo "<script>
+                setTimeout(() => {
+                const box = document.getElementById('notify');
+                box.style.display = 'none';
+                window.location.href = '?';
+                }, 5000);
+            </script>";
+            
+        }
+
+        ?>
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Database Install > Setup Module v2.0</title>
+                <?php applyCss(); ?>
+            </head>
+            <body>
+            <div class="div-card">
+                <div class="div-card-title">Database Install</div>
+
+                <div class="div-card-body"> <br>
+                    Do you want to install database & insert database data ? <br><br>
+                    <form action="" method="post">
+                </div>
+
+                <div class="div-card-footer">
+                    <input type="submit" value="Save">
+                    <a href="?">Home</a>
+                    </form>
+                </div>
+            </div>
+            </body>
+            </html>
+        <?php
+    }
+
+    function load_dbUninstall()
+    {
+        //        
+        if ($_SERVER['REQUEST_METHOD'] === 'POST')
+        {
+            if(file_exists("config.php")){
+                include "config.php";   
+            }
+
+            $table = $pdo->prepare('DROP TABLE IF EXISTS `accounts_heads`;');
+            $table->execute();
+
+            $table = $pdo->prepare('DROP TABLE IF EXISTS `vouchers_collection`;');
+            $table->execute();
+
+            echo ' 
+            <div id="notify" style="width: 370px; text-align:center; background: #e0e0e0; padding: 9px; margin: 20px; border-radius: 3px;">
+                `accounts_heads` DATABASE TABLE DROP. <br>
+                `vouchers_collection` DATABASE TABLE DROP. <br>
+                Wait 5 Sec to Redirect Home Page.
+            </div>
+            ';
+            echo "<script>
+                setTimeout(() => {
+                const box = document.getElementById('notify');
+                box.style.display = 'none';
+                window.location.href = '?';
+                }, 5000);
+            </script>";
+
+        }
+
+        ?>
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Database Install > Setup Module v2.0</title>
+                <?php applyCss(); ?>
+            </head>
+            <body>
+            <div class="div-card">
+                <div class="div-card-title">Database Uninstall </div>
+
+                <div class="div-card-body"> <br>
+                    Do you want to Uninstall database & insert database data ? <br><br>
+                    <form action="" method="post">
+                </div>
+
+                <div class="div-card-footer">
+                    <input type="submit" value="Save">
+                    <a href="?">Home</a>
+                    </form>
+                </div>
+            </div>
+            </body>
+            </html>
+        <?php
+
+    }
+?>
