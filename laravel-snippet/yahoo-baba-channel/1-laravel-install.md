@@ -4,11 +4,20 @@
 ## https://www.youtube.com/watch?v=Sybx-a83QQo&list=PL0b6OzIxLPbz7JK_YYrRJ1KxlGG4diZHJ&index=3
 
 # Required Software-
-`https://www.apachefriends.org/download.html` [xampp server]
+[xampp server]
+```
+https://www.apachefriends.org/download.html
+``` 
 
-`https://getcomposer.org/download/` [dependency manager for PHP]
+[dependency manager for PHP]
+```
+https://getcomposer.org/download/
+``` 
 
-`https://code.visualstudio.com/` [code editor]
+[code editor]
+```
+https://code.visualstudio.com/
+```
 
 # Vs-Code extension for easy development
 1. PHP IntelliSense (Damjan Cvetko)
