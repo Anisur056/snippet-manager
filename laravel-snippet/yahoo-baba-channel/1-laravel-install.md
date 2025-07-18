@@ -1,7 +1,7 @@
 # Laravel 11 Tutorial
 [playlist] https://www.youtube.com/playlist?list=PL0b6OzIxLPbz7JK_YYrRJ1KxlGG4diZHJ
 
-## https://www.youtube.com/watch?v=Sybx-a83QQo&list=PL0b6OzIxLPbz7JK_YYrRJ1KxlGG4diZHJ&index=3
+[Laravel Installation] https://www.youtube.com/watch?v=Sybx-a83QQo&list=PL0b6OzIxLPbz7JK_YYrRJ1KxlGG4diZHJ&index=3
 
 # Required Software-
 [xampp server]
