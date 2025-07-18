@@ -18,16 +18,31 @@
 5. Laravel Blade Snippets (Winnie Lin)
 6. Laravel goto view (codingyu)
 
-## Global Installation-
-``` composer global require laravel/installer ```
+## Global Installation- [ option-1: download code one time-fast ]
+[one time global installation: `run once`]
+```
+composer global require laravel/installer
+```
 
-``` laravel new example-app ```
+[ create project, change `example-app` to your project name]
+``` 
+laravel new example-app
+``` 
 
-## Per Project Installation-
-``` composer create-project laravel/laravel example-app ```
+## Per Project Installation- [ option-2: download all code every time-slow ]
+[ create project, change `example-app` to your project name]
+``` 
+composer create-project laravel/laravel example-app
+``` 
 
 ## Run project
-``` cd example-app ```
+[move to project folder]
+``` 
+cd example-app
+``` 
 
-``` php artisan serve ```
+[run laravel server]
+``` 
+php artisan serve
+``` 
 
