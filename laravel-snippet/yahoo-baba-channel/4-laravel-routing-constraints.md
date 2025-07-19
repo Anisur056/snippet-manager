@@ -3,11 +3,11 @@ This is used to restrict the parameters that can be passed to a route.
 This can be useful in situations where you want to ensure that only certain types of data are accepted
 
 [syntax]
-1. whereNumber('id') [only accept number]
-2. whereAlpha('name') [only accept letter]
-3. whereAlphaNumeric('name') [only accept number & letter]
-4. whereIn('name',['movie','song']) [only accept given value]
-5. where('id','[@0-9a-zA-Z]+') [only accept given regular exprestion]
+1. `whereNumber('id')` [only accept number]
+2. `whereAlpha('name')` [only accept letter]
+3. `whereAlphaNumeric('name')` [only accept number & letter]
+4. `whereIn('name',['movie','song'])` [only accept given value]
+5. `where('id','[@0-9a-zA-Z]+')` [only accept given regular exprestion]
 
 
 [example- only accept number]
