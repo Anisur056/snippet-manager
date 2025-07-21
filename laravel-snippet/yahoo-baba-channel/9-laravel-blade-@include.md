@@ -17,6 +17,9 @@ $fruits = ['apple', 'banana', 'organge', 'grapes'];
 {{-- sending associative/key-value arrays values in view file --}}
 $fruits = ['one'=>'apple', 'two'=>'banana', 'three'=>'organge', 'four'=>'grapes'];
 @include('pages.header',['fruit_names' => $fruits])
+
+{{-- check if include file exists. if not found doesn't include view file --}}
+@includeIf('pages.about')
 ```
 
 
@@ -106,4 +109,10 @@ create view file `resources/views/pages/header.blade.php` & `resources/views/pag
 @empty
     <p>No value found.</p>    
 @endforelse
+```
+
+## example-6
+`resources/views/welcome.blade.php`
+```
+@includeIf('pages.about')
 ```
