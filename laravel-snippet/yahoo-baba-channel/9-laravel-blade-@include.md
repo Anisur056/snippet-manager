@@ -3,7 +3,12 @@
 ## syntax
 ```
 @include('header')
-@include('pages.header') {{-- inside a `pages` folder --}}
+
+{{-- inside a `pages` folder --}}
+@include('pages.header')
+
+{{-- sending single values in view file --}}
+@include('pages.header',['header_name' => 'header-1'])
 ```
 
 
@@ -30,4 +35,14 @@ create view file `resources/views/pages/header.blade.php` & `resources/views/pag
 </html>
 ```
 
+## example-2
+`resources/views/welcome.blade.php`
+```
+@include('pages.header',['header_name' => 'header-1'])
+```
+
+`resources/views/pages/header.blade.php`
+```
+<p> {{ 'header file called: '. $header_name }} </p>
+```
 
