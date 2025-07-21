@@ -11,6 +11,11 @@
 @include('pages.header',['header_name' => 'header-1'])
 
 {{-- sending array values in view file --}}
+$fruits = ['apple', 'banana', 'organge', 'grapes'];
+@include('pages.header',['fruit_names' => $fruits])
+
+{{-- sending associative/key-value arrays values in view file --}}
+$fruits = ['one'=>'apple', 'two'=>'banana', 'three'=>'organge', 'four'=>'grapes'];
 @include('pages.header',['fruit_names' => $fruits])
 ```
 
@@ -65,4 +70,22 @@ create view file `resources/views/pages/header.blade.php` & `resources/views/pag
     <p> {{ $single_name }} </p>
 @endforeach
 ```
+
+## example-4
+`resources/views/welcome.blade.php`
+```
+@php
+    $fruits = ['one'=>'apple', 'two'=>'banana', 'three'=>'organge', 'four'=>'grapes'];
+@endphp
+
+@include('pages.header',['fruit_names' => $fruits])
+```
+
+`resources/views/pages/header.blade.php`
+```
+@foreach ($fruit_names as $key => $value)
+    <p> {{ $key }} -fruid is- {{ $value }} </p>
+@endforeach
+```
+
 
