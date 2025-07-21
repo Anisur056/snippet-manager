@@ -9,6 +9,9 @@
 
 {{-- sending single values in view file --}}
 @include('pages.header',['header_name' => 'header-1'])
+
+{{-- sending array values in view file --}}
+@include('pages.header',['fruit_names' => $fruits])
 ```
 
 
@@ -44,5 +47,22 @@ create view file `resources/views/pages/header.blade.php` & `resources/views/pag
 `resources/views/pages/header.blade.php`
 ```
 <p> {{ 'header file called: '. $header_name }} </p>
+```
+
+## example-3
+`resources/views/welcome.blade.php`
+```
+@php
+    $fruits = ['apple', 'banana', 'organge', 'grapes'];
+@endphp
+
+@include('pages.header',['fruit_names' => $fruits])
+```
+
+`resources/views/pages/header.blade.php`
+```
+@foreach ($fruit_names as $single_name)
+    <p> {{ $single_name }} </p>
+@endforeach
 ```
 
