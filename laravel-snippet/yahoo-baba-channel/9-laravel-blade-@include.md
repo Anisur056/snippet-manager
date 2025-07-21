@@ -20,6 +20,25 @@ $fruits = ['one'=>'apple', 'two'=>'banana', 'three'=>'organge', 'four'=>'grapes'
 
 {{-- check if include file exists. if not found doesn't include view file --}}
 @includeIf('pages.about')
+
+
+{{-- including subviews with conditional check --}}
+
+{{-- if first parameters is true, then include --}}
+{{-- if first parameters is false, then not include --}}
+@php
+    $fruits = ['one'=>'apple', 'two'=>'banana', 'three'=>'organge', 'four'=>'grapes'];
+    $show_page = true;
+@endphp
+@includeWhen($show_page,'pages.header',['fruit_names' => $fruits])
+
+{{-- if first parameters is true, then not include --}}
+{{-- if first parameters is false, then include --}}
+@php
+    $fruits = ['one'=>'apple', 'two'=>'banana', 'three'=>'organge', 'four'=>'grapes'];
+    $show_page = true;
+@endphp
+@includeUnless($show_page,'pages.header',['fruit_names' => $fruits])
 ```
 
 
