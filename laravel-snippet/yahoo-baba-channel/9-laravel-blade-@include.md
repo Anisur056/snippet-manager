@@ -88,4 +88,22 @@ create view file `resources/views/pages/header.blade.php` & `resources/views/pag
 @endforeach
 ```
 
+## example-5
+`resources/views/welcome.blade.php`
+```
+@php
+    // $fruits = ['one'=>'apple', 'two'=>'banana', 'three'=>'organge', 'four'=>'grapes'];
+    $fruits = [];
+@endphp
 
+@include('pages.header',['fruit_names' => $fruits])
+```
+
+`resources/views/pages/header.blade.php`
+```
+@forelse ($fruit_names as $key => $value)
+    <p> {{ $key }} -fruid is- {{ $value }} </p>
+@empty
+    <p>No value found.</p>    
+@endforelse
+```
