@@ -1,16 +1,23 @@
 # Laravel Blade @extends @yield @section
 ## syntax
+
+### @extends lets you extend a template
 ```
-{{-- @extends lets you extend a template --}}
 @extends('layout.masterlayout')
+```
 
-{{-- @yield is used to get content from a child page --}}
+### @yield is used to get content from a child page
+```
 @yield('header')
+```
 
-{{-- @section inject content to master page --}}
+### @section inject content to master page
+```
 @section('header')
+```
 
-{{-- 2nd parameter set default value --}}
+### 2nd parameter set default value
+```
 @yield('header','Set default value')
 ```
 
