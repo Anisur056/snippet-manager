@@ -21,6 +21,16 @@
 @yield('header','Set default value')
 ```
 
+### @hasSection check if that section created or not. if section exists, then do some action else do another action. 
+Note: if section created but no content published, then it counts as not set or no value set. If dublicate section provided, then only first section will show, second section will not show.
+```
+@hasSection('body-content')
+    @yield('body-content')
+@else
+    <h2>No Content Fount.</h2>
+@endif
+```
+
 ## example-1
 `routes\web.php`
 ```
