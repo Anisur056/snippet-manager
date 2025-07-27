@@ -1,5 +1,5 @@
 # Laravel Blade js-inheritance @stack-@push 
-Note: This also work for css also.
+Note: You can add multiple @stack() with same name as your wish. This also work for css also.
 ## syntax
 
 ```
