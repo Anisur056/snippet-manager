@@ -1,6 +1,8 @@
 # Laravel Blade PHP in Javascript
 ## syntax
 @json() used for convert php variable to javascript json variable.
+Another new way is:
+{{ Js::from() }}
 ```
 @php
     $user = "Yahoo Baba";
@@ -9,6 +11,10 @@
 
 var data = @json($fruits);
 console.log(data);
+```
+
+```
+{{ Js::from() }}
 ```
 
 ## example-1
