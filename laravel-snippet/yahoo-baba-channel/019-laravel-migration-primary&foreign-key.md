@@ -28,6 +28,9 @@ return new class extends Migration
                 ->on('tbl_students')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+                // ->onUpdate('cascade') // on update change value to
+                // ->onUpdate('restirct') // on update dont change value.
+                // ->onDelete('set null') // on delete set null value
             $table->string('book');
             $table->date('due_date')->nullable();
             $table->boolean('status');
