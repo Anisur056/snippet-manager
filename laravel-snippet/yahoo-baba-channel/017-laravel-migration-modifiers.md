@@ -6,15 +6,18 @@ php artisan make:migration update_students_table --table=students
 
 ```
 //works above maridaDB 10.5.2
+// rename table column
 $table->renameColumn('name','names');
 ```
 
 ```
+// Delete table column
 $table->dropColumn('percentage');
 $table->dropColumn(['percentage','descriptiontion']);
 ```
 
 ```
+// create city table 30 char limit, deafault value set `no city`, then apply changes with change().
 $table->string('city',30)->default('no city')->change();
 ```
 
@@ -23,6 +26,9 @@ public function up(): void
 {
     //Rename Table
     Schema::rename('students', 'student');
+
+    //drop/delete table
+    Schema::drop('students_log');
 
     //if exist then drop/delete table
     Schema::dropIfExists('students_log');
