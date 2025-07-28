@@ -31,3 +31,15 @@ open `routes\web.php`, create a route ontroller class with `showUser` method.
 ```
 Route::get('/',[PageController::class,'showUser'])->name('home');
 ```
+
+## example-1
+# return view file with method in controller class file
+```
+class PageController extends Controller
+{
+    public function showUser()
+    {
+        return view('welcome'); 
+    }
+}
+```
