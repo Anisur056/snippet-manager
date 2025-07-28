@@ -12,6 +12,115 @@ check the status of migrated files.
 ```
 php artisan migrate:status
 ```
+delete or undo the last migrated table each time.
+```
+php artisan migrate:rollback
+```
+delete all database table
+```
+php artisan migrate:reset
+```
+first rollback all table, then migrate/create all table.
+```
+php artisan migrate:refresh
+```
+first drop/delete all table, then migrate/create all table.
+```
+php artisan migrate:fresh
+```
+## Available Column Types
+https://laravel.com/docs/12.x/migrations#available-column-types
+
+## Boolean Types
+boolean
+
+## String & Text Types
+char
+longText
+mediumText
+string
+text
+tinyText
+
+## Numeric Types
+bigIncrements
+bigInteger
+decimal
+double
+float
+id
+increments
+integer
+mediumIncrements
+mediumInteger
+smallIncrements
+smallInteger
+tinyIncrements
+tinyInteger
+unsignedBigInteger
+unsignedInteger
+unsignedMediumInteger
+unsignedSmallInteger
+unsignedTinyInteger
+
+## Date & Time Types
+dateTime
+dateTimeTz
+date
+time
+timeTz
+timestamp
+timestamps
+timestampsTz
+softDeletes
+softDeletesTz
+year
+
+## Binary Types
+binary
+
+## Object & Json Types
+json
+jsonb
+
+## UUID & ULID Types
+ulid
+ulidMorphs
+uuid
+uuidMorphs
+nullableUlidMorphs
+nullableUuidMorphs
+
+## Spatial Types
+geography
+geometry
+
+## Relationship Types
+foreignId
+foreignIdFor
+foreignUlid
+foreignUuid
+morphs
+nullableMorphs
+
+## Specialty Types
+enum
+set
+macAddress
+ipAddress
+rememberToken
+vector
+
+
+
+
+
+
+
+
+
+
+
 
 ## step-1: create a database in phpmysql or php code
 ```
