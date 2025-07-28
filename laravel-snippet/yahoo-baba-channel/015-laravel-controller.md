@@ -43,3 +43,30 @@ class PageController extends Controller
     }
 }
 ```
+
+## example-2
+# sending value in controller class with route
+`route\web.php`
+```
+Route::get('/user/{id}',[PageController::class,'showUser'])->name('user');
+```
+`app\Http\Controllers\PageController.php`
+```
+class PageController extends Controller
+{
+    public function welcomePage()
+    {
+        return view('welcome'); 
+    }
+
+    public function showUser(string $name)
+    {
+        return view('user', ['id' => $name]); 
+    }
+}
+```
+`resources\views\user.blade.php`
+```
+<h2>User Details</h2>
+<h3>Name: {{$id}} </h3>
+```
