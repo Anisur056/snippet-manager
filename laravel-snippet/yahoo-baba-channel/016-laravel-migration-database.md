@@ -43,84 +43,73 @@ https://laravel.com/docs/12.x/migrations#available-column-types
 `tinyText`
 
 ## Numeric Types
-bigIncrements
-bigInteger
-decimal
-double
-float
-id
-increments
-integer
-mediumIncrements
-mediumInteger
-smallIncrements
-smallInteger
-tinyIncrements
-tinyInteger
-unsignedBigInteger
-unsignedInteger
-unsignedMediumInteger
-unsignedSmallInteger
-unsignedTinyInteger
+`bigIncrements`
+`bigInteger`
+`decimal`
+`double`
+`float`
+`id`
+`increments`
+`integer`
+`mediumIncrements`
+`mediumInteger`
+`smallIncrements`
+`smallInteger`
+`tinyIncrements`
+`tinyInteger`
+`unsignedBigInteger`
+`unsignedInteger`
+`unsignedMediumInteger`
+`unsignedSmallInteger`
+`unsignedTinyInteger`
 
 ## Date & Time Types
-dateTime
-dateTimeTz
-date
-time
-timeTz
-timestamp
-timestamps
-timestampsTz
-softDeletes
-softDeletesTz
-year
+`dateTime`
+`dateTimeTz`
+`date`
+`time`
+`timeTz`
+`timestamp`
+`timestamps`
+`timestampsTz`
+`softDeletes`
+`softDeletesTz`
+`year`
 
 ## Binary Types
-binary
+`binary`
 
 ## Object & Json Types
-json
-jsonb
+`json`
+`jsonb`
 
 ## UUID & ULID Types
-ulid
-ulidMorphs
-uuid
-uuidMorphs
-nullableUlidMorphs
-nullableUuidMorphs
+`ulid`
+`ulidMorphs`
+`uuid`
+`uuidMorphs`
+`nullableUlidMorphs`
+`nullableUuidMorphs`
 
 ## Spatial Types
-geography
-geometry
+`geography`
+`geometry`
 
 ## Relationship Types
-foreignId
-foreignIdFor
-foreignUlid
-foreignUuid
-morphs
-nullableMorphs
+`foreignId`
+`foreignIdFor`
+`foreignUlid`
+`foreignUuid`
+`morphs`
+`nullableMorphs`
 
 ## Specialty Types
-enum
-set
-macAddress
-ipAddress
-rememberToken
-vector
-
-
-
-
-
-
-
-
-
-
-
+`enum`
+`set`
+`macAddress`
+`ipAddress`
+`rememberToken`
+`vector`
 
 ## step-1: create a database in phpmysql or php code
 ```
