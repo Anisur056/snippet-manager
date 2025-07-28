@@ -1,11 +1,18 @@
 # Laravel Migration Database
 ## syntax (migration cmd)
+create `students` table migration file.
 ```
 php artisan make:migration create_students_table
 ```
+run all migration files and create table
 ```
 php artisan migrate
 ```
+check the status of migrated files.
+```
+php artisan migrate:status
+```
+
 ## step-1: create a database in phpmysql or php code
 ```
 CREATE DATABASE `test-db-laravel`;
