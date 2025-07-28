@@ -4,6 +4,51 @@
 php artisan make:migration update_students_table --table=students
 ```
 
+### place the column `after` another column (MySQL).
+```
+$table->after('create_date');
+```
+
+### set INTEGER columns as auto-incrementign (primary key).
+```
+$table->autoIncrement();
+```
+
+### add a comment to a column.
+```
+$table->comment('my comment');
+```
+
+### place the column "first" in the table
+```
+$table->first();
+```
+
+### set the starting value of an auto-incrementing field.
+```
+$table->from($interger);
+```
+
+### Make the column `invisible` to `SELECT *` quries.
+```
+$table->invisible();
+```
+
+### set INTEGER columns as UNSIGNED. no (-) number allowed. only normal number accept
+```
+$table->unsigned();
+```
+
+### set TIMESTAMP columns to use CURRENT_TIMESTAMP as default value.
+```
+$table->useCurrent();
+```
+
+### set TIMESTAMP columns to use CURRENT_TIMESTAMP when a record is updated.
+```
+$table->useCurrentOnUpdate();
+```
+
 ```
 //works above maridaDB 10.5.2
 // rename table column
