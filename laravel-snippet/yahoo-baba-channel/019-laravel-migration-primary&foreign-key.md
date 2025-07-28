@@ -1,5 +1,36 @@
 # Laravel Migration Primary & Foreign Key
+## syntax
+```
+$table->foreign('stu_id') // column to set foreign key
+    ->references('id') // another table primary id 
+    ->on('tbl_students') // another table name.
+    ->onUpdate('cascade') // on update change value to
+    ->onDelete('cascade'); // on delete, delete value to
+```
+or
+```
+$table->foreignId('stu_id')
+    ->constrained('tbl_students');
+    ->cascadeOnUpdate()
+    ->cascadeOnDelete();
+```
 
+### remove foreign key form table column
+```
+$table->dropForeign(['stu_id']);
+```
+
+### remove Primary key form table column
+```
+$table->dropPrimary(['stu_id']);
+```
+
+### remove Unique key form table column
+```
+$table->dropUnique(['stu_id']);
+```
+
+## example-1
 ```
 <?php
 
