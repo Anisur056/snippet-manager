@@ -18,6 +18,16 @@ $table->dropColumn(['percentage','descriptiontion']);
 $table->string('city',30)->default('no city')->change();
 ```
 
+```
+public function up(): void
+{
+    //Rename Table
+    Schema::rename('students', 'student');
+
+    //if exist then drop/delete table
+    Schema::dropIfExists('students_log');
+}
+```
 
 migration file will created in`database\migrations\` folder
 ```
