@@ -1,5 +1,7 @@
 # Laravel Migration Database
 ## syntax (migration cmd)
+note: Laravel generally follows a convention where table names are plural and in snake_case. However, it's not a strict requirement. If you want to name your table differently 
+
 create `students` table migration file.
 ```
 php artisan make:migration create_students_table
