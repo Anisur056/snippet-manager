@@ -32,15 +32,15 @@ php artisan migrate:fresh
 https://laravel.com/docs/12.x/migrations#available-column-types
 
 ## Boolean Types
-boolean
+`boolean`
 
 ## String & Text Types
-char
-longText
-mediumText
-string
-text
-tinyText
+`char`
+`longText`
+`mediumText`
+`string`
+`text`
+`tinyText`
 
 ## Numeric Types
 bigIncrements
