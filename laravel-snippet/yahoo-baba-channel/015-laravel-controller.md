@@ -70,3 +70,13 @@ class PageController extends Controller
 <h2>User Details</h2>
 <h3>Name: {{$id}} </h3>
 ```
+
+## example-3
+# Grouping same controller class. this help code organize
+```
+Route::controller(PageController::class)->group(function(){
+    Route::get('/','welcomePage')->name('home');
+    Route::get('/user/{id}','showUser')->name('user');
+});
+```
+
