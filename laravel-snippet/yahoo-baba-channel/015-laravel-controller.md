@@ -1,21 +1,57 @@
 # Laravel Controller
-## artisan syntax
-This will create a controller 
+## syntax
+This artisan command will create a `PageController.php` file.
 ```
 php artisan make:controller PageController
 ```
-Running the artisan comment will create a controller page name `app\Http\Controllers\PageController.php`
+Running the above command will create a controller file in `app\Http\Controllers\PageController.php`
 ```
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
 
 }
+```
+
+This artisan command will create a `TestingController.php` file with `__invoke()` method. this method trigger automatically when loaded.
+```
+php artisan make:controller TestingController --invokable
+```
+Running the above command will create a controller file in `app\Http\Controllers\TestingController.php`
+```
+<?php
+namespace App\Http\Controllers;
+use Illuminate\Http\Request;
+
+class TestingController extends Controller
+{
+    /**
+     * Handle the incoming request.
+     */
+    public function __invoke(Request $request)
+    {
+
+    }
+}
+
+```
+
+## Grouping same controller class. this help code organize
+```
+Route::controller(PageController::class)->group(function(){
+    Route::get('/','welcomePage')->name('home');
+    Route::get('/user/{id}','showUser')->name('user');
+});
+```
+
+
+## example-1
+run artisan cmd.
+```
+php artisan make:controller PageController
 ```
 Now, make your own method.
 ```
@@ -32,7 +68,7 @@ open `routes\web.php`, create a route ontroller class with `showUser` method.
 Route::get('/',[PageController::class,'showUser'])->name('home');
 ```
 
-## example-1
+## example-2
 # return view file with method in controller class file
 ```
 class PageController extends Controller
@@ -44,7 +80,7 @@ class PageController extends Controller
 }
 ```
 
-## example-2
+## example-3
 # sending value in controller class with route
 `route\web.php`
 ```
@@ -71,12 +107,26 @@ class PageController extends Controller
 <h3>Name: {{$id}} </h3>
 ```
 
-## example-3
-# Grouping same controller class. this help code organize
+## example-4
+# controller with __invoke() method.
+run artisan cmd.
 ```
-Route::controller(PageController::class)->group(function(){
-    Route::get('/','welcomePage')->name('home');
-    Route::get('/user/{id}','showUser')->name('user');
-});
+php artisan make:controller TestingController --invokable
+```
+return test view
+```
+    public function __invoke(Request $request)
+    {
+        return view('test');
+    }
 ```
 
+create route with TestingController class.
+```
+Route::get('/test',TestingController::class)->name('test');
+```
+
+`resources\views\test.blade.php`
+```
+<h1>This is testing Page.</h1>
+```
