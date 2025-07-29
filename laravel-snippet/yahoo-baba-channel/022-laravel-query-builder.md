@@ -1,5 +1,50 @@
 # Laravel Query Builder
 
+## syntax
+```
+->select('name','email') //select specifig table column.
+->select('email as student_email') //select email table column and rename it `student_email`
+->distinct() //only select unique value, duplicate value will select once.
+->pluck('name') // return value as array
+->pluck('email','name') // return name as key & email as value
+->where('city','ctg') //find records where `city` set to `ctg`
+->where('age','>',20) //find records where `age` is bigger 20
+->where('age','<',20) //find records where `age` is smaller 20
+->where('age','=',20) //find records where `age` is equal 20
+->where('age','<>',20) //find records where `age` is not 20
+->where('name','like','A%') //find records where `name` starts with A
+->where([        // used multiple array in single where..
+    ['city','=','ctg'],
+    ['age','>',20]
+])
+orWhere('age','<',20) // check where() & orWhere() condition, one of it gets result
+whereBetween('id',[3,6]) // select records between id (3 to 6)
+whereNotBetween('age',[18,20]) // select no records between age (18 to 20). opposite of whereBetween().
+whereIn('city',['ctg','dhaka']) // select city where `ctg` & `dhaka`
+whereNotIn('city',['ctg','dhaka']) // don't select city where `ctg` & `dhaka`. opposite of whereIn().
+whereNull('email') // select record where email is null/blank.
+whereNotNull('email') //Dont select record where email is null/blank. opposite of whereNull().
+whereDate('created_at','2025-07-29') //Select record from `created_at` table where date is `2025-07-29`
+whereMonth('created_at','6') //Select record from `created_at` table where month is 6 or june
+whereDay('created_at','27') //Select record from `created_at` table where day is 27
+whereYear('created_at','2025') //Select record from `created_at` table where year is 2025
+whereTime('created_at','08:01:32') //Select record from `created_at` table where Time is 08:01:32
+orderBy('id','asc') //order records by Ascending Order (1,2,3)
+orderBy('id','desc') //order records by Descending Order (3,2,1). Also can do multiple order at a time.
+first() //return first record
+latest() //return latest record
+oldest() //return oldest record
+inRandomOrder() //returen record randomly.
+limit(3) or take(3) //returen only 3 records
+offset(3) or skip(3) //returen records from 3 serial
+count() //count the records
+max('age') //return maximum value of age
+min('age') //return minimum value of age
+avg('age') //return avarage value of age
+sum('age') //return all age value addition.
+
+```
+
 ### step-1
 make controller file
 ```
@@ -87,4 +132,29 @@ view value with `{{$user->id}}`<br>
             crossorigin="anonymous"></script>
 </body>
 </html>
+```
+
+## example-2
+`web.php`
+```
+Route::get('/student/{id}',[UserController::class,'singleUser'])->name('student');
+```
+
+`UserController.php`
+```
+    public function singleUser($id){
+        $student = DB::table('tbl_students')->where('id',$id)->get();
+        return view('student', ['data' => $student]);
+    }
+```
+`student.blade.php`
+```
+<h1>Students Details</h1>
+
+@foreach ($data as $student)
+    <h3>Name: {{ $student->name }}</h3>
+    <h3>Email: {{ $student->email }}</h3>
+    <h3>Age: {{ $student->age }}</h3>
+    <h3>City: {{ $student->city }}</h3>
+@endforeach
 ```
