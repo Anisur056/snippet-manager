@@ -104,6 +104,28 @@
         }
     }
 ```
+### check if data exists, then update. otherwise it will insert new record.
+```
+    public function updateStudent(){
+        $data_update = DB::table('tbl_students')
+                        ->updateOrInsert(
+                            [
+                                'name' => 'sumon rahman-2',
+                                'email' => 'sumon@gmail.com-2',
+                            ],
+                            [
+                                'age' => 35,
+                                'updated_at' => now()
+                            ]
+                        );
+
+        if($data_update){
+            echo "<h1>Data updated successfully.</h1>";
+        }else{
+            echo "<h1>Data Already Updated.</h1>";
+        }
+    }
+```
 
 ### example-1
 `web.php`
