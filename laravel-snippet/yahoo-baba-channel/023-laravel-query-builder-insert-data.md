@@ -149,9 +149,26 @@
         }
     }
 ```
-### upsert --------missing
+### upsert() check if email already exist. if found then update the entry, otherwise add new record.
 ```
+    public function updateStudent(){
+        $data_update = DB::table('tbl_students')
+                        ->upsert(
+                            [
+                                'name' => 'Ramim-3',
+                                'email' => 'ramim-10@gmail.com',
+                                'age' => 21,
+                                'city' => 'BOALKHALI',  
+                            ],
+                            ['email']
+                        );
 
+        if($data_update){
+            echo "<h1>Data updated successfully.</h1>";
+        }else{
+            echo "<h1>Data Already Updated.</h1>";
+        }
+    }
 ```
 ### Delete data where id set to 1.
 ```
@@ -159,6 +176,7 @@
         $data_delete = DB::table('tbl_students')
                         ->where('id',1)
                         ->delete();
+                        ->truncate(); // delete all table data & also reset id to 1.
 
         if($data_delete){
             echo "<h1>Data deleted successfully.</h1>";
@@ -231,5 +249,26 @@ Route::get('/student-delete',[UserController::class,'deleteStudent']);
         }
     }
 ```
+Delete from url - user input in address bar
+`web.php`
+```
+Route::get('/student-delete/{id}',[UserController::class,'deleteStudent']);
+```
+`UserController.php`
+```
+    public function deleteStudent($id){
+        $data_delete = DB::table('tbl_students')
+                        ->where('id',$id)
+                        ->delete();
+
+        if($data_delete){
+            echo "<h1>Data deleted successfully.</h1>";
+        }else{
+            echo "<h1>Data deletion failed.</h1>";
+        }
+    }
+```
+
+
 
 
