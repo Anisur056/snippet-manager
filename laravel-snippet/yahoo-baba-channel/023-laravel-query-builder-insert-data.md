@@ -127,7 +127,48 @@
     }
 ```
 
-### example-1
+### increment/decrement integer value in table record. 
+```
+    public function updateStudent(){
+        $data_update = DB::table('tbl_students')
+                        ->where('id',2)
+                        ->increment('age'); //increment 1 at a time.
+                        ->increment('age', 5); //increment 5 at a time.
+                        ->decrement('age'); //decrement 1 at a time.
+                        ->decrement('age', 5); //decrement 5 at a time.
+                        ->decrement('age', 5,['city' => 'cumilla']); //decrement 5 at a time & also change city to cumilla
+                        ->incrementEach([  //increment age to 2 & votes to 1 each time upate.
+                            'age' => 2,
+                            'votes' => 1,
+                        ]);
+
+        if($data_update){
+            echo "<h1>Data updated successfully.</h1>";
+        }else{
+            echo "<h1>Data Already Updated.</h1>";
+        }
+    }
+```
+### upsert --------missing
+```
+
+```
+### Delete data where id set to 1.
+```
+    public function deleteStudent(){
+        $data_delete = DB::table('tbl_students')
+                        ->where('id',1)
+                        ->delete();
+
+        if($data_delete){
+            echo "<h1>Data deleted successfully.</h1>";
+        }else{
+            echo "<h1>Data deletion failed.</h1>";
+        }
+    }
+```
+
+### example-1 (insert)
 `web.php`
 ```
 Route::get('/student-add',[UserController::class,'addStudent']);
@@ -144,6 +185,50 @@ Route::get('/student-add',[UserController::class,'addStudent']);
                             'created_at' => now(),
                             'updated_at' => now()
                         ]);
+    }
+```
+
+### example-2 (update)
+`web.php`
+```
+Route::get('/student-update',[UserController::class,'updateStudent']);
+```
+`UserController.php`
+```
+    public function updateStudent(){
+        $data_update = DB::table('tbl_students')
+                        ->where('id',2)
+                        ->update([
+                            'city' => 'DHAKA',
+                            'age' => 20,
+                            'updated_at' => now(),
+                        ]);
+
+        if($data_update){
+            echo "<h1>Data updated successfully.</h1>";
+        }else{
+            echo "<h1>Data Already Updated.</h1>";
+        }
+    }
+```
+
+### example-3 (delete)
+`web.php`
+```
+Route::get('/student-delete',[UserController::class,'deleteStudent']);
+```
+`UserController.php`
+```
+    public function deleteStudent(){
+        $data_delete = DB::table('tbl_students')
+                        ->where('id',1)
+                        ->delete();
+
+        if($data_delete){
+            echo "<h1>Data deleted successfully.</h1>";
+        }else{
+            echo "<h1>Data deletion failed.</h1>";
+        }
     }
 ```
 
