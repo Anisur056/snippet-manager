@@ -1,4 +1,4 @@
-# Laravel Query Builder Insert Data
+# Laravel Query Builder Insert-Update-Delete Data
 ## syntax
 ### inserting single data
 ```
