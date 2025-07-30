@@ -61,6 +61,17 @@ form action will be`action="{{ route('student-update', $data->id) }}"`
 </body>
 </html>
 ```
+you can also use `@method('PUT')`. This will secure page more. Hacker cannot read, delete with this method.
+```
+<form action="{{ route('student-update', $data->id) }}" method="post">
+    @csrf
+    @method('PUT')
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input type="text" class="form-control" name="name" value="{{ $data->name }}">
+    </div>
+    .......
+```
 
 ## step-3
 ### create `updateStudentForm($id)` in controller file
@@ -77,6 +88,11 @@ form action will be`action="{{ route('student-update', $data->id) }}"`
 ```
 Route::post('/student-update/{id}','updateStudent')->name('student-update');
 ```
+to sccure more use
+```
+Route::put('/student-update/{id}','updateStudent')->name('student-update');
+```
+
 ## step-5
 ### create controller method- `updateStudent(Request $req)` & update the record
 ```
