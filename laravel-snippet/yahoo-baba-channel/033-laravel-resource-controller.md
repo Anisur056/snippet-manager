@@ -20,6 +20,18 @@ Route::resource('students',studentController::class)->except([
     'create','update','show'
 ]);
 ```
+rename resource route names.
+```
+Route::resource('students',studentController::class)->names([
+    'index' => 'students-list',
+    'create' => 'students-add-from',
+    'store' => 'students-add-db',
+    'show' => 'students-single',
+    'edit' => 'students-edit-from',
+    'update' => 'students-edit-db',
+    'destroy' => 'students-delete',
+]);
+```
 
 ### step-1
 create a resource controller. this will create below code
