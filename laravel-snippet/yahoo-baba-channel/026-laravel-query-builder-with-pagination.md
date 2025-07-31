@@ -1,12 +1,33 @@
 # Laravel Query Builder With Pagination
 ## syntax
+### next & previous button show only. also need to use `{{ $data->links() }} ` in view file
 ```
 ->simplePaginate(2);
 ```
-
+```
+{{ $data->links() }}
+```
+### next & previous $ number button will show. use `pagination::bootstrap-4` for next,number, previous button. use `pagination::bootstrap-5` for next,number, previous button and rusult info.
+```
+->Paginate(2);
+```
+```
+{{ $data->links('pagination::bootstrap-5') }}
 ```
 
+### for fast load & use for large data load. Also use case for scroll page data load.
 ```
+->cursorPaginate(2);
+```
+```
+{{ $data->links() }}
+```
+
+### show total result
+```
+{{ $data->total() }}
+```
+
 ## step-1
 ### use `->simplePaginate();` method, to use pagination, set parameter for show number of content to load.
 ```
