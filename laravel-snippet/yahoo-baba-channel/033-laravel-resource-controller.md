@@ -39,7 +39,11 @@ Route::resource([
     'employees' => employeesController::class,
     'teachers' => teachersController::class
 ]);
+```
 
+create nested resource controller route
+```
+Route::resource('students.comments',commentsController::class);
 ```
 
 ### step-1
@@ -120,4 +124,21 @@ Route::resource('users',studentController::class);
 use App\Http\Controllers\studentController;
 ```
 
+## example-2
+Create nested Resource Controller
+```
+php artisan make:controller commentsController --resource
+```
+modify `web.php`
+```
+Route::resource('students.comments',commentsController::class);
+```
+include controller class at top
+```
+use App\Http\Controllers\commentsController;
+```
+to check route list
+```
+php artisan route:list --name=comments
+```
 
