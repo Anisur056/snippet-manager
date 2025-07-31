@@ -44,6 +44,7 @@ Route::resource([
 create nested resource controller route
 ```
 Route::resource('students.comments',commentsController::class);
+Route::resource('students.comments',commentsController::class)->shallow(); //to hide user id.
 ```
 
 ### step-1
