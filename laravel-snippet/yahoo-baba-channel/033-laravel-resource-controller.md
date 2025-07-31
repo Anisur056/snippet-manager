@@ -8,6 +8,12 @@ show route list.
 ```
 php artisan route:list --name=students
 ```
+olny create `'create','update','show'` route
+```
+Route::resource('students',studentController::class)->only([
+    'create','update','show'
+]);
+```
 
 ### step-1
 create a resource controller. this will create below code
