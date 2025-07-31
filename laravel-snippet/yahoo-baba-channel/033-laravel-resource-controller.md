@@ -1,1 +1,90 @@
+# Laravel Resource Controller
+
+## syntax
+```
+php artisan make:controller studentController --resource
+```
+show route list.
+```
+php artisan route:list --name=students
+```
+
+### step-1
+create a resource controller. this will create below code
+```
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class studentController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
+}
+```
+
+### step-2
+create a resource route, also include controller class
+```
+Route::resource('users',studentController::class);
+```
+```
+use App\Http\Controllers\studentController;
+```
+
 
