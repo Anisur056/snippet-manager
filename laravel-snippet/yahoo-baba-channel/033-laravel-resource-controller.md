@@ -14,6 +14,12 @@ Route::resource('students',studentController::class)->only([
     'create','update','show'
 ]);
 ```
+create opposite of `'create','update','show'` route
+```
+Route::resource('students',studentController::class)->except([
+    'create','update','show'
+]);
+```
 
 ### step-1
 create a resource controller. this will create below code
