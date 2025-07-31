@@ -32,6 +32,15 @@ Route::resource('students',studentController::class)->names([
     'destroy' => 'students-delete',
 ]);
 ```
+create multiple resource controller route
+```
+Route::resource([
+    'students' => studentController::class,
+    'employees' => employeesController::class,
+    'teachers' => teachersController::class
+]);
+
+```
 
 ### step-1
 create a resource controller. this will create below code
