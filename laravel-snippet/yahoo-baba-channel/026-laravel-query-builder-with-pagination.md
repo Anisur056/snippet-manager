@@ -12,6 +12,7 @@
 ```
     public function showUsers(){
         $students = DB::table('tbl_students')
+                    ->orderBy('id','desc')
                     ->simplePaginate(2);
         return view('students', ['data' => $students]);
     }
