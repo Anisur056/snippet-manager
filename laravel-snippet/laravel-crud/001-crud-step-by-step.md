@@ -107,3 +107,29 @@ class DatabaseSeeder extends Seeder
 ```
 php artisan db:seed
 ```
+
+## step-7
+`route\web.php`
+```
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::resource('/users',UserController::class);
+```
+
+## step-8
+`app\Http\Controllers\UserController.php` 
+### Show all user
+```
+    public function index()
+    {
+        $users = User::all();
+        return $users;
+    }
+```
