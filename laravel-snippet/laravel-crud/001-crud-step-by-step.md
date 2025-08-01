@@ -125,11 +125,23 @@ Route::resource('/users',UserController::class);
 
 ## step-8
 `app\Http\Controllers\UserController.php` 
-### Show all user
+### Show all user- json
 ```
     public function index()
     {
         $users = User::all();
         return $users;
+    }
+```
+### Show all user- array-foreach
+```
+    public function index()
+    {
+        $users = User::all();
+
+        foreach ($users as $user) {
+            echo $user->name;
+            echo "<br>";
+        }
     }
 ```
