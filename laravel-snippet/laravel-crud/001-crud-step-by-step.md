@@ -145,3 +145,87 @@ Route::resource('/users',UserController::class);
         }
     }
 ```
+### send data to view file
+```
+    public function index()
+    {
+        $users = User::all(); //retreve all data in JSON Format.
+        return view('students',compact('users'));
+
+        // Available Method.
+
+        // $users = User::all(); //retreve all data in JSON Format.
+        // $users = User::orderBy('id', 'asc')->get(); //get all data in order by .
+        // $users = User::find(2); //select perticular data, primary id=2, return single array.
+        // $users = User::find([2,4],['name','email']); //select 2, 4 number id & return name & email column
+        // $users = User::count(); // return totol record count.
+        // $users = User::min('age'); // return minimum number in columen age. only works in integer number
+        // $users = User::max('age'); // return maximum number in columen age. only works in integer number
+        // $users = User::where('city','Juanatown')->get(); // search where city is Juanatown & get it.
+        // $users = User::whereCity('Juanatown')->get(); // search where city is Juanatown & get it.
+        // $users = User::where('city','Juanatown')->where('age','>',50)->get(); // search where city is Juanatown also age bigger then 50 & get it.
+        // $users = User::where('city','Juanatown')->orWhere('age','>',50)->get(); // search where city is Juanatown or age bigger then 50 & get it.
+        // $users = User::select('name','email')->get(); // only select name & email column
+        // $users = User::where('city','Juanatown')->toSql(); // show sql command.
+        // $users = User::where('city','Juanatown')->toRawSql(); // /show RAW sql command.
+        // $users = User::whereNot('age',20)->get(); // /get record which is not 20 age.
+        // $users = User::whereBetween('age',[20,30])->get(); // /get record betweeen 20 to 30 age.
+        // $users = User::whereNotBetween('age',[20,30])->get(); // /get opposite of record betweeen 20 to 30 age.
+        // $users = User::whereIn('city',['Juanatown','Felicitaberg'])->get(); // select city only 'Juanatown','Felicitaberg' .
+        // $users = User::where('city','Juanatown')->first(); // return only first 1 record.
+        // if(User::where('id',1)->exists()){
+            //if condition true, do something.
+        // }
+        // return $users;
+    }
+```
+### create view file to show all data
+`resources\views\students.blade.php`
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>All Students</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" 
+            rel="stylesheet"    
+            integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" 
+            crossorigin="anonymous">
+</head>
+<body>
+    <div class="container mt-5">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Age</th>
+                    <th>City</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($users as $user)
+                    <tr>
+                        <td>{{$user->id}}</td>
+                        <td>{{$user->name}}</td>
+                        <td>{{$user->email}}</td>
+                        <td>{{$user->age}}</td>
+                        <td>{{$user->city}}</td>
+                    </tr> 
+                @endforeach
+    
+            </tbody>
+        </table>
+    </div>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" 
+            integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" 
+            crossorigin="anonymous"></script>
+</body>
+</html>
+```
+
