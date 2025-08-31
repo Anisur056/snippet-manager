@@ -10,7 +10,7 @@ services:
     image: php:7.4-apache
     container_name: web-server
     ports:
-      - "80:80"
+      - "8081:80"
     volumes:
       - ./html:/var/www/html
     depends_on:
@@ -29,7 +29,7 @@ services:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin-container
     ports:
-      - "8080:80"
+      - "8082:80"
     environment:
       PMA_HOST: db
       PMA_PORT: 3306
