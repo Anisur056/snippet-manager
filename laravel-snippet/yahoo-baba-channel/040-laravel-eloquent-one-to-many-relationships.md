@@ -1,4 +1,4 @@
-# Laravel Eloquent One To One Relationships
+# Laravel Eloquent One To Many Relationships
 
 ## Step-1 `database\migrations\0001_01_01_000000_create_users_table.php`
 ```
